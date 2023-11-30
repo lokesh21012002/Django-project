@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/user/', views.hello),
     path('hello/name/', views.name),
+    path("hello/<int:id>/", views.dynamic)
+
 
 
     # path('hello-world/')
