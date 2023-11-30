@@ -5,8 +5,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-# def plan(request):
+def plan(request):
 
-#     print(request)
+    print(request)
 
-#     return HttpResponse("Hello from plan")
+    return HttpResponse("Hello from plan")

@@ -19,12 +19,19 @@ from django.urls import path
 
 from user import views
 
+from plan import views as view_plan  # Alias solution for multiple views
+
+
+# from plan.views import plan        Import function directly
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/user/', views.hello),
     path('hello/name/', views.name),
-    path("hello/<int:id>/", views.dynamic)
+    # path("hello/<int:id>/", views.dynamic)
+    path("hello/plan", view_plan.plan)
+    # path('hello/plan/', plan),
 
 
 
