@@ -5,13 +5,23 @@ from user.models import User
 # Create your views here.
 
 
-def getALlUsers(request):
-    # id=request.body['id']
-    result = User.objects.all()  # return all
-    # result_spec=User.objects.get(pk=id) get a specific user based on id
-    print(type(result))
+def gettAllUserByExtra(request, id, sub_id):
 
-    return JsonResponse({'data': result}, safe=False)
+    request.session["name"] = "lokesh"
+
+    return JsonResponse({"id": id, "sub_id": sub_id})
+
+
+def getALlUsers(request, id, username, password):
+
+    s = request.session.get("name")
+    print(id, username, password, s)
+    # id=request.body['id']
+    # result = User.objects.all()  # return all
+    result_spec = User.objects.get(pk=id)  # get a specific user based on id
+    print(result_spec)
+
+    return JsonResponse({'data': id}, safe=False)
 
 
 # def hello(request):
