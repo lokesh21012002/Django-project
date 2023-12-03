@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse, request
+from django.http import HttpResponse, JsonResponse, request, response
 from user.models import User
 
 # Create your views here.
@@ -8,6 +8,8 @@ from user.models import User
 def gettAllUserByExtra(request, id, sub_id):
 
     request.session["name"] = "lokesh"
+
+    return JsonResponse({"status": 200})
 
     return JsonResponse({"id": id, "sub_id": sub_id})
 
@@ -22,6 +24,11 @@ def getALlUsers(request, id, username, password):
     print(result_spec)
 
     return JsonResponse({'data': id}, safe=False)
+
+
+def deleteSession(request):
+    del request.session["name"]
+    return JsonResponse({"message": "deleted"})
 
 
 # def hello(request):
