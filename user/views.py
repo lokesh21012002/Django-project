@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, request, response
 from user.models import User
 
-from django.db.models import Q
+from django.db.models import *
 
 # Create your views here.
 
@@ -148,6 +148,28 @@ def field_look_ups(request):
     user = User.objects.filter(id__range=(1, 10))
     user = User.objects.filter(id__in=[1, 2, 3])
     user = User.objects.filter(id__isnull=False)
+
+
+def aggregates(request):
+    user = User.objects.all()
+    avg = user.aggregate(Avg('id'))
+    print(avg)
+
+    user = User.objects.all()
+    sum = user.aggregate(Sum('id'))
+    print(sum)
+
+    user = User.objects.all()
+    min = user.aggregate(Min('id'))
+    print(min)
+
+    user = User.objects.all()
+    max = user.aggregate(Max('id'))
+    print(max)
+
+    user = User.objects.all()
+    count = user.aggregate(Count('id'))
+    print(count)
 
 
 # def hello(request):
