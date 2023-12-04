@@ -172,6 +172,12 @@ def aggregates(request):
     print(count)
 
 
+def Q_function(request, username, password):
+    user = User.objects.filter(Q(username=username) & Q(password=password))
+    user = User.objects.filter(Q(username=username) | Q(password=password))
+    user = User.objects.filter(~Q(username=username))
+
+
 # def hello(request):
 
 #     # print(request)
