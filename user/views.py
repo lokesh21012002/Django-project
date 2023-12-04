@@ -43,20 +43,87 @@ def allUsersOfDb(request):
     # return JsonResponse(list(users), safe=False)
 
     # users = User.objects.all().order_by('username').values('username', 'password') Ascending
-    users = User.objects.all().order_by('username').reverse().values(
-        'username', 'password')  # Descending
+    # users = User.objects.all().order_by('username').reverse().values(
+    #     'username', 'password')  # Descending
     # users = User.objects.all().order_by('?').values('username', 'password') Randomly
 
     # users=User.objects.using('default').all()
-    users = User.objects.filter(
-        username=username) & User.objects.filter(password=password)
-    users = User.objects.filter(username=username, password=password)
-    users = User.objects.filter(
-        username=username) | User.objects.filter(password=password)
-    user = User.objects(Q(username=username) & Q(
-        password=password))  # Q object
+    # users = User.objects.filter(
+    #     username=username) & User.objects.filter(password=password)
+    # users = User.objects.filter(username=username, password=password)
+    # users = User.objects.filter(
+    #     username=username) | User.objects.filter(password=password)
+    # user = User.objects(Q(username=username) & Q(
+    #     password=password))  # Q object
 
-    return JsonResponse(list(users), safe=False)
+    # user = User.objects.get(pk=1)
+    # print(type(user))
+    user = User.objects.order_by('?').first()
+    user = User.objects.order_by('?').last()
+    user = User.objects.filter(username=username, password=password)
+    user = User.objects.filter(pk=id).update(
+        username=username, password=password)
+
+    user = User.objects.all()
+    if user.count() == 0:
+        return JsonResponse({"error": "No data found"}, safe=False)
+    else:
+        return JsonResponse(list(user), safe=False)
+
+    if user.exists():
+        print("User found")
+        return JsonResponse({"status": 200, "found": "found"})
+    else:
+        return JsonResponse({"status": 200, "found": "Not found"})
+
+    # return JsonResponse(user, safe=False)
+
+
+def signup(request, username, password, email, phone):
+    try:
+        new_user = User(username=username, password=password,
+                        email=email, phone=phone)
+        new_user.save()
+        return JsonResponse({"status": 200, "msg": "Signed up successfully"}, safe=True)
+    except Exception as e:
+        return JsonResponse({"status": 400, "msg": str(e)}, safe=True)
+
+
+def signupCreate(request, username, password, email, phone):
+    # update_or_create
+    # bulk_create(list_of_objects)
+    # bulk_update
+    # in_bulk
+    # count()
+    deleted = User.objects.filter(
+        username=username, password=password).delete()
+
+    # for d in deleted:
+    #     d.delete()
+
+    user, created = User.objects.get_or_create(
+        username, password, email, phone)
+
+    if created:
+        return JsonResponse({"status": 200, "msg": "Created Successfully"}, safe=True)
+    else:
+        return JsonResponse({"status": 400, "msg": "Already Exists"}, safe=True)
+
+    try:
+        user_prev = User.objects.filter(
+            username=username, email=email, phone=phone)
+
+        if user_prev.exists():
+            return JsonResponse({"status": 200, "msg": "User Already exists"})
+
+        else:
+
+            new_user = User.objects.create(username, password, email, phone)
+            print(new_user)
+
+        return JsonResponse({"status": 200, "msg": "Signed up successfully"}, safe=True)
+    except Exception as e:
+        return JsonResponse({"status": 400, "msg": str(e)}, safe=True)
 
 
 # def hello(request):
