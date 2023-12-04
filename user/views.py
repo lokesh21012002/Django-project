@@ -126,6 +126,30 @@ def signupCreate(request, username, password, email, phone):
         return JsonResponse({"status": 400, "msg": str(e)}, safe=True)
 
 
+def field_look_ups(request):
+    # __exact
+    # __contains
+    # __lt
+    # __in
+    # __gt
+    # __lte
+    # __gte
+    # __startswith
+    # __isstartswith
+    # __range
+    # __isnull
+    user = User.objects.filter(username__exact="Lokesh")
+    user = User.objects.filter(username__contains="o")
+
+    if user.exists():
+        return HttpResponse("User Found")
+    user = User.objects.filter(id__lt=8)
+    user = User.objects.filter(username__startswith="Lo")
+    user = User.objects.filter(id__range=(1, 10))
+    user = User.objects.filter(id__in=[1, 2, 3])
+    user = User.objects.filter(id__isnull=False)
+
+
 # def hello(request):
 
 #     # print(request)
