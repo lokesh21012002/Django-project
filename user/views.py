@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, request, response
 from user.models import User
 
+from django.db.models import Q
+
 # Create your views here.
 
 
@@ -29,6 +31,32 @@ def getALlUsers(request, id, username, password):
 def deleteSession(request):
     del request.session["name"]
     return JsonResponse({"message": "deleted"})
+
+
+def allUsersOfDb(request):
+    username = "Lokesh"
+    password = "Lokesh@12345"
+    # users = {"users": User.objects.all().values('username', 'password')}
+    # print(users.query)
+    # users = User.objects.filter(username="Lokesh")
+    # users = User.objects.exclude(username="Lokesh")
+    # return JsonResponse(list(users), safe=False)
+
+    # users = User.objects.all().order_by('username').values('username', 'password') Ascending
+    users = User.objects.all().order_by('username').reverse().values(
+        'username', 'password')  # Descending
+    # users = User.objects.all().order_by('?').values('username', 'password') Randomly
+
+    # users=User.objects.using('default').all()
+    users = User.objects.filter(
+        username=username) & User.objects.filter(password=password)
+    users = User.objects.filter(username=username, password=password)
+    users = User.objects.filter(
+        username=username) | User.objects.filter(password=password)
+    user = User.objects(Q(username=username) & Q(
+        password=password))  # Q object
+
+    return JsonResponse(list(users), safe=False)
 
 
 # def hello(request):
