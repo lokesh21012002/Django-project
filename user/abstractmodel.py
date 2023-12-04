@@ -8,3 +8,7 @@ class abstractModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+# Multi table
+# Proxy model
