@@ -178,6 +178,10 @@ def Q_function(request, username, password):
     user = User.objects.filter(~Q(username=username))
 
 
+def limiting_query_set(request):
+    user = User.objects.all()[:2]
+
+
 # def hello(request):
 
 #     # print(request)
