@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, request, response
 from user.models import User
+from django.views import *
 
 from django.db.models import *
 
@@ -211,3 +212,7 @@ def all(request):
 #     #     return JsonResponse(data)
 
 #     return JsonResponse({"status": 200})
+
+class ClassView(View):
+    def getAllUsers(self, request):
+        return HttpResponse("all")
