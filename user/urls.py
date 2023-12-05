@@ -7,7 +7,7 @@ urlpatterns = [
          {"username": "lokesh", "password": "password"}),
     path('hello/user/<int:id>/<int:sub_id>/', views.gettAllUserByExtra),
 
-    path('all/', views.allUsersOfDb)
+    path('all/', views.all)
 
 
 

@@ -182,6 +182,15 @@ def limiting_query_set(request):
     user = User.objects.all()[:2]
 
 
+def all(request):
+    # classname__field name to get from differnet table
+    user = User.objects.filter(plan_u__id=3)
+
+    print(user)
+
+    return HttpResponse(user)
+
+
 # def hello(request):
 
 #     # print(request)

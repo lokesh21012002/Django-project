@@ -5,7 +5,8 @@ from plan.models import Plan
 
 
 class TravelAdminModel(admin.ModelAdmin):
-    list_display = ("id", 'name', 'destination', 'description', 'user')
+    list_display = ("id", 'name', 'destination', 'description', 'created_by')
+    # list_display='__all__'
 
 
 admin.site.register(Plan, TravelAdminModel)
