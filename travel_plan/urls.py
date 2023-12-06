@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from user import views
-import plan
-import user
-from plan import views as view_plan  # Alias solution for multiple views
+from .views import *
+
+# from user import views
+# import plan
+# import user
+# from plan import views as view_plan  # Alias solution for multiple views
 
 
 # from plan.views import plan        Import function directly
@@ -28,10 +30,11 @@ from plan import views as view_plan  # Alias solution for multiple views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hello/', parseJson)
 
-    path('home/', include('plan.urls')),
+    # path('home/', include('plan.urls')),
 
-    path('home/', include('user.urls'))
+    # path('home/', include('user.urls'))
     # path('hello/user/', views.hello),
     # path('hello/name/', views.name),
     # path("hello/<int:id>/", views.dynamic)
