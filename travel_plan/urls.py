@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+from student import classview
 # import student
 
 # from .views import *
@@ -33,7 +35,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('hello/', parseJson)
 
-    path('home/', include('student.urls')),
+    # path('home/', include('student.urls')),
+    path('home/', classview.StudentView.as_view())
+
 
     # path('home/', include('user.urls'))
     # path('hello/user/', views.hello),
