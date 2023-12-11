@@ -2,19 +2,52 @@ from rest_framework import serializers
 from .models import Student
 
 
+# we cn use validators here also
+# field level validation
+# object level validation
+# validators
+
+# validators>field>object
 class Studentserializers(serializers.ModelSerializer):
 
     class Meta:
         model = Student
         fields = '__all__'
 
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.age = validated_data.get('age', instance.age)
-        instance.address = validated_data.get('address', instance.address)
+    def validate_age(self, value):  # field level validation
 
-        instance.save()
-        return instance
+        if type(value) == int:
+            return value
+        else:
+            raise serializers.ValidationError("Age should be integer")
+
+        # if type(value) != int:
+        #     print("Hello")
+        #     raise serializers.ValidationError("Age should be integer")
+        #     # return value
+        # if value < 0:
+        #     raise serializers.ValidationError("Age should be positive")
+
+        # return value
+
+    def validate(self, data):
+        name = data.get('name')
+        age = data.get('age')
+        if type(age) != int:
+            raise serializers.ValidationError("Age must be integer")
+
+        if age < 0:
+            raise serializers.ValidationError("Age must be positive")
+
+        return data
+
+    # def update(self, instance, validated_data):
+    #     instance.name = validated_data.get('name', instance.name)
+    #     instance.age = validated_data.get('age', instance.age)
+    #     instance.address = validated_data.get('address', instance.address)
+
+    #     instance.save()
+    #     return instance
 
     # def create(self, **validated_data):
     #     return super().create(validated_data)

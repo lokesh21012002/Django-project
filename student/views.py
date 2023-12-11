@@ -65,7 +65,11 @@ def addStudent(request):
             serialized_data.save()
             return JsonResponse({"message": "success"}, status=201)
         else:
-            return JsonResponse(serialized_data.errors, status=400)
+            # serialized_data.save()
+            # serialized_data.create()
+            # Student.objects.create(serialized_data)
+            # serialized_data.create(serialized_data.validated_data)
+            return JsonResponse(serialized_data.errors, status=400, safe=False)
 
     else:
         return JsonResponse({"error": "Method not allowed"}, status=405)
