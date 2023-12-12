@@ -8,5 +8,5 @@ urlpatterns = [
     path('student/add/', addStudent),
     path('student/delete/<int:id>/', deleteStudent),
     path('student/update/<int:id>/', updateStudent),
-    path('drf/', CRUD_API)
+    path('drf/<int:stu_id>/', CRUD_API)
 ]
