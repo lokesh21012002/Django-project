@@ -13,6 +13,11 @@ class Studentserializers(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = '__all__'
+        # incldue=['id','name','age']
+        # exclude=['address']
+        read_only_fields = ['id']
+        # Extra arguments to fields
+        extra_kargs = {'id': {read_only_fields: True}}
 
     def validate_age(self, value):  # field level validation
 
