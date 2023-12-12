@@ -17,7 +17,7 @@ class Studentserializers(serializers.ModelSerializer):
         # exclude=['address']
         read_only_fields = ['id']
         # Extra arguments to fields
-        extra_kargs = {'id': {read_only_fields: True}}
+        # extra_kargs = {'id': {read_only_fields: True}}
 
     def validate_age(self, value):  # field level validation
 
