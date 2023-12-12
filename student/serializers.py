@@ -15,16 +15,16 @@ class Studentserializers(serializers.ModelSerializer):
         fields = '__all__'
         # incldue=['id','name','age']
         # exclude=['address']
-        # read_only_fields = ['id']
+        read_only_fields = ['id']
         # Extra arguments to fields
         # extra_kargs = {'id': {read_only_fields: True}}
 
-    # def validate_age(self, value):  # field level validation
+    def validate_age(self, value):  # field level validation
 
-    #     if type(value) == int:
-    #         return value
-    #     else:
-    #         raise serializers.ValidationError("Age should be integer")
+        if type(value) == int:
+            return value
+        else:
+            raise serializers.ValidationError("Age should be integer")
 
         # if type(value) != int:
         #     print("Hello")
