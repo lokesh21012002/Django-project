@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+
+from student.viewset import viewClassSet
 # import student
+
 
 # from .views import *
 
@@ -28,12 +33,14 @@ from django.urls import path, include
 
 # from plan.views import plan        Import function directly
 
-
+router = DefaultRouter()
+router.register('api', viewClassSet, basename='student')
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
     # path('hello/', parseJson)
 
-    path('home/', include('student.urls')),
+    # path('home/', include('student.urls')),
     # path('home',classviews.StudentView.as_view())
 
     # path('home/', include('user.urls'))
