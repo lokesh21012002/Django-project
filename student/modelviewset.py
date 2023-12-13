@@ -4,7 +4,9 @@ from .serializers import Studentserializers
 from rest_framework import authentication, authtoken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authentication import BaseAuthentication, TokenAuthentication
-from .customauth import JWTAuthentication
+# from .customauth import JWTAuthentication
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class viewSetStudent(viewsets.

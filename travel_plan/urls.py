@@ -23,6 +23,7 @@ from student.viewset import viewClassSet
 from student.modelviewset import viewSetStudent
 from rest_framework.authtoken.views import obtain_auth_token
 from student.auth import CustomAuth
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 # import student
 
 
@@ -42,7 +43,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('authtoken/', obtain_auth_token),  # inbulit
-    path('customauth/', CustomAuth.as_view())  # custom auth
+    path('customauth/', CustomAuth.as_view()),  # custom auth
+    path('token-jwt/', TokenObtainPairView.as_view(), name="Token"),
+    path('refresh-token-jwt/', TokenRefreshView, name="Refresh Token"),
+    path('verify-jwt/', TokenVerifyView, name="Verify Jwt"),
+
+
+
+
+
 
 
     # path('hello/', parseJson)
