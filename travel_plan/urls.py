@@ -21,6 +21,8 @@ from rest_framework.routers import DefaultRouter
 
 from student.viewset import viewClassSet
 from student.modelviewset import viewSetStudent
+from rest_framework.authtoken.views import obtain_auth_token
+from student.auth import CustomAuth
 # import student
 
 
@@ -39,6 +41,10 @@ router.register('api', viewSetStudent, basename='student')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('authtoken/', obtain_auth_token),  # inbulit
+    path('customauth/', CustomAuth.as_view())  # custom auth
+
+
     # path('hello/', parseJson)
 
     # path('home/', include('student.urls')),
