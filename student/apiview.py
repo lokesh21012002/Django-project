@@ -1,8 +1,10 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
 from rest_framework.response import Response
 from .models import Student
 from .serializers import Studentserializers
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import BaseAuthentication
 
 # by default it only support get method
 # @api_view(['GET', 'POST'])
@@ -20,6 +22,8 @@ from .serializers import Studentserializers
 
 
 @api_view(["GET", 'POST', 'PUT', "DELETE"])
+@authentication_classes([BaseAuthentication])
+@permission_classes[IsAuthenticated]
 def CRUD_API(request, stu_id=None):
     if request.method == 'GET':
         # id = request.data.get('id')
