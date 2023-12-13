@@ -20,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 
 
 from student.viewset import viewClassSet
+from student.modelviewset import viewSetStudent
 # import student
 
 
@@ -34,7 +35,7 @@ from student.viewset import viewClassSet
 # from plan.views import plan        Import function directly
 
 router = DefaultRouter()
-router.register('api', viewClassSet, basename='student')
+router.register('api', viewSetStudent, basename='student')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
