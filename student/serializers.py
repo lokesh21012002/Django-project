@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student
+from .models import Student, Course
 
 
 # we cn use validators here also
@@ -56,3 +56,14 @@ class Studentserializers(serializers.ModelSerializer):
 
     # def create(self, **validated_data):
     #     return super().create(validated_data)
+
+
+class CourseSerializer(serializers.Serializer):
+    stu = serializers.StringRelatedField(many=True, read_only=True)
+    stu = serializers.PrimaryKeyRelatedField()
+    stu = serializers.HyperlinkedRelatedField()
+    stu = serializers.SlugRelatedField()
+
+    class Meta:
+        model = Course
+        fields = '__all__'

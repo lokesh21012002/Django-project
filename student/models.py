@@ -18,3 +18,11 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Course(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+    duration = models.CharField(max_length=5)
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="stu")

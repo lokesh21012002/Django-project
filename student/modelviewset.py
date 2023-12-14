@@ -12,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .pagination import PageClass
 from .LimitOffsetPagination import LimitOffsetPagination
+from .cursorpagination import CursorPage
 
 
 class viewSetStudent(viewsets.
@@ -31,7 +32,8 @@ class viewSetStudent(viewsets.
     ordering_fields = ['name', 'age']
     ordering_fields = '__all__'
     # pagination_class = PageClass
-    pagination_class = LimitOffsetPagination
+    # pagination_class = LimitOffsetPagination
+    pagination_class = CursorPage
 
     # ^ sttarts with = exact match
     # filterset_fields = ['name', 'age']
