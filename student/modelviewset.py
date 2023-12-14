@@ -11,6 +11,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .pagination import PageClass
+from .LimitOffsetPagination import LimitOffsetPagination
 
 
 class viewSetStudent(viewsets.
@@ -29,7 +30,8 @@ class viewSetStudent(viewsets.
     ordering_fields = ['name']
     ordering_fields = ['name', 'age']
     ordering_fields = '__all__'
-    pagination_class = PageClass
+    # pagination_class = PageClass
+    pagination_class = LimitOffsetPagination
 
     # ^ sttarts with = exact match
     # filterset_fields = ['name', 'age']
