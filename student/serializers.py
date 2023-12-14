@@ -8,7 +8,21 @@ from .models import Student, Course
 # validators
 
 # validators>field>object
+
+
+class CourseSerializer(serializers.Serializer):
+    stu = serializers.StringRelatedField(many=True, read_only=True)
+    stu = serializers.PrimaryKeyRelatedField()
+    stu = serializers.HyperlinkedRelatedField()
+    stu = serializers.SlugRelatedField()
+
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
 class Studentserializers(serializers.ModelSerializer):
+    courses = CourseSerializer(many=True, read_only=True)
 
     class Meta:
         model = Student
@@ -56,17 +70,6 @@ class Studentserializers(serializers.ModelSerializer):
 
     # def create(self, **validated_data):
     #     return super().create(validated_data)
-
-
-class CourseSerializer(serializers.Serializer):
-    stu = serializers.StringRelatedField(many=True, read_only=True)
-    stu = serializers.PrimaryKeyRelatedField()
-    stu = serializers.HyperlinkedRelatedField()
-    stu = serializers.SlugRelatedField()
-
-    class Meta:
-        model = Course
-        fields = '__all__'
 
 
 class Demo(serializers.HyperlinkedModelSerializer):
