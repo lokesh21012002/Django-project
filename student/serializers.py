@@ -67,3 +67,9 @@ class CourseSerializer(serializers.Serializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+
+class Demo(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
