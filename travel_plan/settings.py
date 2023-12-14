@@ -157,8 +157,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthencation'
                                        'rest_framework_simplejwt.authentication.JWTAuthentication'],
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated']
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
 
+    'DEFAULT_PAGINATION_CLASS': ['rest_framework.pagination.PageNumberPagination'],
+    'PAGE_SIZE': 5
 
 
 
@@ -174,4 +176,16 @@ SIMPLE_JWT = {
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "TOKEN_TYPE_CLAIM": "token_type",
 
+}
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        # Local Link provided by the redis-server command
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
