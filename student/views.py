@@ -5,7 +5,13 @@ from .serializers import Studentserializers
 import json
 from django.views.decorators.csrf import csrf_exempt
 
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
+
+
 # Create your views here.
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 @csrf_exempt
@@ -37,14 +43,22 @@ def getAllStudents(request):
 @csrf_exempt
 def getStudentById(request, id):
     if request.method == "GET":
-        stu = Student.objects.filter(id=id)
-        print(stu)
-        if len(stu) == 0:
-            return JsonResponse({"msg": "Student not Found"}, status=200)
-        else:
-            serialized_data = Studentserializers(stu[0])
 
-            return JsonResponse(serialized_data.data, status=200, safe=False)
+        if cache.get(id):
+            print("data from cache")
+            student = cache.get(id)
+            return JsonResponse(student.data)
+        else:
+
+            stu = Student.objects.filter(id=id)
+            print(stu)
+            if len(stu) == 0:
+                return JsonResponse({"msg": "Student not Found"}, status=200)
+            else:
+                serialized_data = Studentserializers(stu[0])
+                cache.set(id, serialized_data)
+
+                return JsonResponse(serialized_data.data, status=200, safe=False)
 
     else:
         return JsonResponse('Not Allowed', safe=False, status=403)
