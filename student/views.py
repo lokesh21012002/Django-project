@@ -15,10 +15,10 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 @csrf_exempt
-def getAllStudents(request):
+async def getAllStudents(request):
     if request.method == 'GET':
 
-        students = Student.objects.all()
+        students = await Student.objects.all()
         print(students)
 
         serialize = Studentserializers(students, many=True)
