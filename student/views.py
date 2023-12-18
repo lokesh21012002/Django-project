@@ -4,6 +4,7 @@ from .models import Student
 from .serializers import Studentserializers
 import json
 from django.views.decorators.csrf import csrf_exempt
+from asgiref.sync import sync_to_async
 
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -41,6 +42,7 @@ async def getAllStudents(request):
 
 
 @csrf_exempt
+@sync_to_async
 def getStudentById(request, id):
     if request.method == "GET":
 
