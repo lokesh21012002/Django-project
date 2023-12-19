@@ -90,11 +90,15 @@ class ColourSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     colour = ColourSerializer(many=True)
+    country = serializers.SerializerMethodField()
 
     class Meta:
         model = Person
         fields = '__all__'
         depth = 1  # shows all fields of Foreign Table
+
+    def get_country(self, obj):
+        return {"name": "India"}
 
     def validate_name(self, name):
         special = "~!@#$%^&?<>/?|"
