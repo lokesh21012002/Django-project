@@ -27,12 +27,20 @@ from django.db import models
 #     student = models.ForeignKey(
 #         Student, on_delete=models.CASCADE, related_name="stu")
 
+class Colour(models.Model):
+    colour_name = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.colour_name
+
 
 class Person(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
     age = models.IntegerField()
     address = models.CharField(max_length=20)
+    colour = models.ForeignKey(
+        Colour, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

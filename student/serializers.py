@@ -79,13 +79,22 @@
 
 
 from rest_framework import serializers
-from .models import Person
+from .models import Person, Colour
+
+
+class ColourSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Colour
+        fields = ['colour_name']
 
 
 class PersonSerializer(serializers.ModelSerializer):
+    colour = ColourSerializer(many=True)
+
     class Meta:
         model = Person
         fields = '__all__'
+        depth = 1  # shows all fields of Foreign Table
 
     def validate_name(self, name):
         special = "~!@#$%^&?<>/?|"
