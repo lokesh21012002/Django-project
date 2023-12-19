@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
 
 
 class CustomeViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,8 @@ class CustomeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthetication]
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+    # by default modelviewset provide all to restrict it
+    http_method_names = ['GET', 'POST']
 
     def list(self, request):
 
@@ -27,6 +30,11 @@ class CustomeViewSet(viewsets.ModelViewSet):
         serialize = PersonSerializer(queryset, many=True)
 
         return Response(serialize.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])  # to implement our own methods
+    def send_mail(request):
+
+        return Response({"msg": "Sucesss"}, status=status.HTTP_200_OK)
 
 
 class LoginView(APIView):
