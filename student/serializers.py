@@ -79,7 +79,36 @@
 
 
 from rest_framework import serializers
-from .models import Person, Colour
+from .models import Person, Colour, User as UserModel
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelField):
+    class Meta:
+        model = UserModel
+        fields = '__all__'
+
+    def validate(self, obj):
+        if obj.get('username'):
+
+            user = User.objects.get(username=obj['username'])
+            raise serializers.ValidationError(
+                {"message": "Username already exists."})
+        if obj.get('email'):
+            user = User.objects.get(username=obj['email'])
+            raise serializers.ValidationError(
+                {"message": "Email already exists."})
+
+        return user
+
+    def create(self, validated_data):
+        user = UserModel.objects.create(
+            validated_data['username'], validated_data['email'])
+        user.set_password(validated_data['password'])
+
+        user.save()
+
+        return user
 
 
 class ColourSerializer(serializers.ModelSerializer):

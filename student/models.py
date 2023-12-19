@@ -44,3 +44,13 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class User(models.Model):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=20, unique=True, blank=False)
+    email = models.EmailField()
+    password = models.CharField(max_length=10, blank=False)
+
+    def __str__(self):
+        return self.username
