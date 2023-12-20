@@ -76,9 +76,9 @@ class LoginView(APIView):
 
             }, status=status.HTTP_201_CREATED)
         else:
-            raise CustomeException("Not Found")
+            raise CustomeException("User not Found")
 
-            return Response({"msg": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"msg": "user Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class SignupView(APIView):
