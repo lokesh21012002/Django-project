@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .models import Person
+from .models import Person, Colour
 from .serializers import PersonSerializer, UserSerializer
 
 from rest_framework.response import Response
@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+from django.db.models import Subquery, OuterRef
 
 
 class CustomeViewSet(viewsets.ModelViewSet):
@@ -32,9 +33,22 @@ class CustomeViewSet(viewsets.ModelViewSet):
         return Response(serialize.data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])  # to implement our own methods
-    def send_mail(request):
+    def send_mail(self, request):
 
         return Response({"msg": "Sucesss"}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['POST'])
+    def send_message(request):
+        return Response({"msg": "Sucess"}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["GET"
+
+                                  ])
+    def custom_metod(self, request):
+        colour = Colour.objects.filter(id=request.get('id'))
+        persons = Person.objects.filter(id__in=Subquery(colour.values("id")))
+        serializer = PersonSerializer(persons, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class LoginView(APIView):
