@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from django.db.models import Subquery, OuterRef, F
+from exceptions import CustomeException
 
 
 class CustomeViewSet(viewsets.ModelViewSet):
@@ -75,6 +76,7 @@ class LoginView(APIView):
 
             }, status=status.HTTP_201_CREATED)
         else:
+            raise CustomeException("Not Found")
 
             return Response({"msg": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
