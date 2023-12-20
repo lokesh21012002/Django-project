@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
-from django.db.models import Subquery, OuterRef
+from django.db.models import Subquery, OuterRef, F
 
 
 class CustomeViewSet(viewsets.ModelViewSet):
@@ -49,6 +49,14 @@ class CustomeViewSet(viewsets.ModelViewSet):
         persons = Person.objects.filter(id__in=Subquery(colour.values("id")))
         serializer = PersonSerializer(persons, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+        # without subquery
+
+        colour = Colour.objects.filter(id=request.get('id'))
+        id_colours = [colours.id for colours in colour]
+        person = Person.objects.filter(id__in=id_colours)
+        Product.objects.filter(id=1).update(quantity=F('quantity') + 10)
+        return Response(PersonSerializer(person).data, status=status.HTTP_200_OK)
 
 
 class LoginView(APIView):
