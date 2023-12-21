@@ -87,8 +87,11 @@ class SignupView(APIView):
         data = request.data
         user = UserSerializer(data=data)
 
-        if user.is_valid():
+        if Person.objects.filter(user).exists():
+            return Response({"msg": "User already exist"}, status=status.HTTP_200_OK)
+
+        if not user.is_valid():
             return Response({"msg": user.erros}, status=status.HTTP_400_BAD_REQUEST)
         else:
             user.save()
-            return Response({"message": "Sign up Success!"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Sign up Success!", "id": user.id}, status=status.HTTP_201_CREATED)
