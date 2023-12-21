@@ -42,6 +42,11 @@ class CustomeViewSet(viewsets.ModelViewSet):
     def send_message(request):
         return Response({"msg": "Sucess"}, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['POST'], url_path='/api/v1/')
+    def send_message_with_path(request):
+
+        return Response({"msg": "Sucess"}, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=["GET"
 
                                   ])
