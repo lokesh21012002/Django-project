@@ -47,6 +47,13 @@ class CustomeViewSet(viewsets.ModelViewSet):
 
         return Response({"msg": "Sucess"}, status=status.HTTP_200_OK)
 
+
+    @action(detail=True,methods=['POST'])
+
+
+    def getAlldataByID(request,id):
+            
+
     @action(detail=True, methods=["GET"
 
                                   ])
