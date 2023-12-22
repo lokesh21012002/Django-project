@@ -45,8 +45,8 @@ urlpatterns = [
     path('authtoken/', obtain_auth_token),  # inbulit
     path('customauth/', CustomAuth.as_view()),  # custom auth
     path('token-jwt/', TokenObtainPairView.as_view(), name="Token"),
-    path('refresh-token-jwt/', TokenRefreshView, name="Refresh Token"),
-    path('verify-jwt/', TokenVerifyView, name="Verify Jwt"),
+    path('refresh-token-jwt/', TokenRefreshView.as_view(), name="Refresh Token"),
+    path('verify-jwt/', TokenVerifyView.as_view(), name="Verify Jwt"),
 
 
 

@@ -1,5 +1,7 @@
-# from rest_framework import serializers
-# from .models import Student, Course
+from django.contrib.auth.models import User
+
+from rest_framework import serializers
+from .models import Student, Course
 
 
 # # we cn use validators here also
@@ -10,23 +12,23 @@
 # # validators>field>object
 
 
-# class CourseSerializer(serializers.Serializer):
-#     stu = serializers.StringRelatedField(many=True, read_only=True)
-#     stu = serializers.PrimaryKeyRelatedField()
-#     stu = serializers.HyperlinkedRelatedField()
-#     stu = serializers.SlugRelatedField()
+class CourseSerializer(serializers.Serializer):
+    stu = serializers.StringRelatedField(many=True, read_only=True)
+    # stu = serializers.PrimaryKeyRelatedField()
+    # stu = serializers.HyperlinkedRelatedField()
+    # stu = serializers.SlugRelatedField()
 
-#     class Meta:
-#         model = Course
-#         fields = '__all__'
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 
-# class Studentserializers(serializers.ModelSerializer):
-#     courses = CourseSerializer(many=True, read_only=True)
+class Studentserializers(serializers.ModelSerializer):
+    courses = CourseSerializer(many=True, read_only=True)
 
-#     class Meta:
-#         model = Student
-#         fields = '__all__'
+    class Meta:
+        model = Student
+        fields = '__all__'
 #         # incldue=['id','name','age']
 #         # exclude=['address']
 #         read_only_fields = ['id']
@@ -78,68 +80,65 @@
 #         fields = '__all__'
 
 
-from rest_framework import serializers
-from .models import Person, Colour, User as UserModel
-from django.contrib.auth.models import User
+# class UserSerializer(serializers.ModelField):
+
+    # class Meta:
+    #     model = UserModel
+    #     fields = '__all__'
+
+    # def validate(self, obj):
+    #     if obj.get('username'):
+
+    #         user = User.objects.get(username=obj['username'])
+    #         raise serializers.ValidationError(
+    #             {"message": "Username already exists."})
+    #     if obj.get('email'):
+    #         user = User.objects.get(username=obj['email'])
+    #         raise serializers.ValidationError(
+    #             {"message": "Email already exists."})
+
+    #     return user
+
+    # def create(self, validated_data):
+    #     user = UserModel.objects.create(
+    #         validated_data['username'], validated_data['email'])
+    #     user.set_password(validated_data['password'])
+
+    #     user.save()
+
+    #     return user
 
 
-class UserSerializer(serializers.ModelField):
-    class Meta:
-        model = UserModel
-        fields = '__all__'
+# class ColourSerializer(serializers.ModelSerializer):
 
-    def validate(self, obj):
-        if obj.get('username'):
-
-            user = User.objects.get(username=obj['username'])
-            raise serializers.ValidationError(
-                {"message": "Username already exists."})
-        if obj.get('email'):
-            user = User.objects.get(username=obj['email'])
-            raise serializers.ValidationError(
-                {"message": "Email already exists."})
-
-        return user
-
-    def create(self, validated_data):
-        user = UserModel.objects.create(
-            validated_data['username'], validated_data['email'])
-        user.set_password(validated_data['password'])
-
-        user.save()
-
-        return user
+    # class Meta:
+    #     model = Colour
+    #     fields = ['colour_name']
 
 
-class ColourSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Colour
-        fields = ['colour_name']
+# class PersonSerializer(serializers.ModelSerializer):
+    # colour = ColourSerializer(many=True)
+    # country = serializers.SerializerMethodField()
 
+    # class Meta:
+    #     model = Person
+    #     fields = '__all__'
+    #     depth = 1  # shows all fields of Foreign Table
 
-class PersonSerializer(serializers.ModelSerializer):
-    colour = ColourSerializer(many=True)
-    country = serializers.SerializerMethodField()
+    # def get_country(self, obj):
+    #     return {"name": "India"}
 
-    class Meta:
-        model = Person
-        fields = '__all__'
-        depth = 1  # shows all fields of Foreign Table
+    # def validate_name(self, name):
+    #     special = "~!@#$%^&?<>/?|"
+    #     for letter in name:
+    #         if letter in special:
+    #             raise serializers.ValidationError(
+    #                 "Name cannot contain any of these characters ~!@#$%^&?<>/\|")
 
-    def get_country(self, obj):
-        return {"name": "India"}
+    #     return name
 
-    def validate_name(self, name):
-        special = "~!@#$%^&?<>/?|"
-        for letter in name:
-            if letter in special:
-                raise serializers.ValidationError(
-                    "Name cannot contain any of these characters ~!@#$%^&?<>/\|")
+    # def validate(self, data):
+    #     if data['age'] < 18:
+    #         return serializers.ValidationError("Age should be greater than 18")
 
-        return name
-
-    def validate(self, data):
-        if data['age'] < 18:
-            return serializers.ValidationError("Age should be greater than 18")
-
-        return data
+    #     return data

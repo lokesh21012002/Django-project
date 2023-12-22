@@ -47,12 +47,16 @@ class CustomeViewSet(viewsets.ModelViewSet):
 
         return Response({"msg": "Sucess"}, status=status.HTTP_200_OK)
 
-
-    @action(detail=True,methods=['POST'])
-
-
-    def getAlldataByID(request,id):
-            
+    @action(detail=True, methods=['POST'])
+    def getAlldataByID(request, id):
+        data = Person.objects.select_related('city').only(
+            'name', 'email', 'phone', 'address', 'gender', 'dob')
+        obj = data.filter(pk=id).first()
+        if not obj:
+            raise CustomeException("Data Not Found")
+        else:
+            serializers = PersonalDetailSerializer(obj)
+            return Response(serializers.data, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["GET"
 
