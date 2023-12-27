@@ -23,6 +23,11 @@ class CourseSerializer(serializers.Serializer):
         fields = '__all__'
 
 
+class AdminSerializer(serializers.Serializer):
+    
+            
+
+
 class Studentserializers(serializers.ModelSerializer):
     courses = CourseSerializer(many=True, read_only=True)
 
