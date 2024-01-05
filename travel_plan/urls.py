@@ -22,7 +22,7 @@ from rest_framework.routers import DefaultRouter
 from student.viewset import viewClassSet
 from student.modelviewset import viewSetStudent
 from rest_framework.authtoken.views import obtain_auth_token
-from student.auth import CustomAuth
+# from student.auth import CustomAuth
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 # import student
 
@@ -37,16 +37,17 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 # from plan.views import plan        Import function directly
 
-router = DefaultRouter()
-router.register('api', viewSetStudent, basename='student')
+# router = DefaultRouter()
+# router.register('api', viewSetStudent, basename='student')
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('authtoken/', obtain_auth_token),  # inbulit
-    path('customauth/', CustomAuth.as_view()),  # custom auth
-    path('token-jwt/', TokenObtainPairView.as_view(), name="Token"),
-    path('refresh-token-jwt/', TokenRefreshView.as_view(), name="Refresh Token"),
-    path('verify-jwt/', TokenVerifyView.as_view(), name="Verify Jwt"),
+    path('api/v1/', include('student.urls')),
+    # path('', include(router.urls)),
+    # path('authtoken/', obtain_auth_token),  # inbulit
+    # path('customauth/', CustomAuth.as_view()),  # custom auth
+    # path('token-jwt/', TokenObtainPairView.as_view(), name="Token"),
+    # path('refresh-token-jwt/', TokenRefreshView.as_view(), name="Refresh Token"),
+    # path('verify-jwt/', TokenVerifyView.as_view(), name="Verify Jwt"),
 
 
 

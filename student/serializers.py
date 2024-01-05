@@ -23,9 +23,7 @@ class CourseSerializer(serializers.Serializer):
         fields = '__all__'
 
 
-class AdminSerializer(serializers.Serializer):
-    
-            
+# class AdminSerializer(serializers.Serializer):
 
 
 class Studentserializers(serializers.ModelSerializer):
@@ -40,12 +38,12 @@ class Studentserializers(serializers.ModelSerializer):
 #         # Extra arguments to fields
 #         # extra_kargs = {'id': {read_only_fields: True}}
 
-#     def validate_age(self, value):  # field level validation
+    # def validate_age(self, value):  # field level validation
 
-#         if type(value) == int:
-#             return value
-#         else:
-#             raise serializers.ValidationError("Age should be integer")
+    #     if type(value) == int:
+    #         return value
+    #     else:
+    #         raise serializers.ValidationError("Age should be integer")
 
 #         # if type(value) != int:
 #         #     print("Hello")
@@ -56,16 +54,17 @@ class Studentserializers(serializers.ModelSerializer):
 
 #         # return value
 
-#     # def validate(self, data):
-#     #     name = data.get('name')
-#     #     age = data.get('age')
-#     #     if type(age) != int:
-#     #         raise serializers.ValidationError("Age must be integer")
+    def validate(self, data):
+        print(data)
+        name = data.get('name')
+        age = data.get('age')
+        if type(age) != int:
+            raise serializers.ValidationError("Age must be integer")
 
-#     #     if age < 0:
-#     #         raise serializers.ValidationError("Age must be positive")
+        if age < 0:
+            raise serializers.ValidationError("Age must be positive")
 
-#     #     return data
+        return data
 
 #     # def update(self, instance, validated_data):
 #     #     instance.name = validated_data.get('name', instance.name)

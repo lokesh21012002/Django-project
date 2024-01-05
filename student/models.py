@@ -4,6 +4,7 @@ from django.db import models
 
 
 def validate_age(value):
+    # print(type(value))
     if type(value) != int or value < 0:
         raise Exception("age must be number and positive")
 
