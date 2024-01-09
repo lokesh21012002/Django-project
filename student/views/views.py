@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import request, JsonResponse, HttpResponse
-from .models import Student
-from .serializers import Studentserializers
+# from .models import Student
+from student.models.models import *
+# from .serializers import Studentserializers
+from student.serializers.serializers import *
 import json
 from django.views.decorators.csrf import csrf_exempt
 from asgiref.sync import sync_to_async
@@ -12,7 +14,7 @@ from django.core.cache import cache
 
 
 # Create your views here.
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 @csrf_exempt

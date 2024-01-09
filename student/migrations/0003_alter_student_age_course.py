@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='age',
-            field=models.IntegerField(validators=[student.models.validate_age]),
+            field=models.IntegerField(
+                validators=[student.models.models.validate_age]),
         ),
         migrations.CreateModel(
             name='Course',

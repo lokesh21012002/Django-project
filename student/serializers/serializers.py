@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
-from .models import Student, Course
+# from .models import Student, Course
+from student.models.models import *
 
 
 # # we cn use validators here also

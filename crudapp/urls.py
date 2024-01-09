@@ -19,8 +19,6 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 
-from student.viewset import viewClassSet
-from student.modelviewset import viewSetStudent
 from rest_framework.authtoken.views import obtain_auth_token
 # from student.auth import CustomAuth
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
@@ -41,7 +39,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # router.register('api', viewSetStudent, basename='student')
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('student.urls')),
+    path('api/v1/', include('student.urls.urls')),
     # path('', include(router.urls)),
     # path('authtoken/', obtain_auth_token),  # inbulit
     # path('customauth/', CustomAuth.as_view()),  # custom auth

@@ -64,7 +64,7 @@ MIDDLEWARE = [
     # 'user.middlewares.my_middleware',
 ]
 
-ROOT_URLCONF = 'travel_plan.urls'
+ROOT_URLCONF = 'crudapp.urls'
 
 TEMPLATES = [
     {
@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'travel_plan.wsgi.application'
+WSGI_APPLICATION = 'crudapp.wsgi.application'
 
 
 # Database
@@ -98,11 +98,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('NAME'),
-        'USER': env('USER'),
-        'PASSWORD': env('PASSWORD'),
-        "HOST": env('HOST'),
-        "PORT": env('PORT'),
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        "HOST": env('DATABASE_HOST'),
+        "PORT": env('DATABASE_PORT'),
         # 'NAME': 'student',
         # 'USER': 'newuser',
         # 'PASSWORD': 'password',

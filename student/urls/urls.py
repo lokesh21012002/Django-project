@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import *
+# from .views import *
+from student.views.views import *
 # from .apiview import CRUD_APIte
 # from .genericAPIClassview import CommonView
 
