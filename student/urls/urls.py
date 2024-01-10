@@ -8,6 +8,12 @@ urlpatterns = [
     re_path(r'^student/$', studentAPI),
     re_path(r'^student/([0-9]+)$', studentAPI),
     path('students', getAllStudents),
+
+
+
+
+
+
     # path('student/<int:id>/', getStudentById),
     # path('student/add/', addStudent),
     # path('student/delete/<int:id>/', deleteStudent),

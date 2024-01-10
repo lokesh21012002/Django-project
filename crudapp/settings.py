@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import environ
+import dj_database_url
+import os
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +33,7 @@ SECRET_KEY = 'django-insecure-+y9(5x=m2(fhsjne2e0a&=%b5f9=lzmmqz_xy=ti8#^w+2z_qj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,6 +93,8 @@ WSGI_APPLICATION = 'crudapp.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+    "default": dj_database_url.parse(env("DATABASE_URL"))
+
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
@@ -97,19 +102,21 @@ DATABASES = {
 
 
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        "HOST": env('DATABASE_HOST'),
-        "PORT": env('DATABASE_PORT'),
-        # 'NAME': 'student',
-        # 'USER': 'newuser',
-        # 'PASSWORD': 'password',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432',
-    }
+    # 'default': {
+    # 'ENGINE': 'django.db.backends.postgresql',
+    # 'NAME': env('DATABASE_NAME'),
+    # 'USER': env('DATABASE_USER'),
+    # 'PASSWORD': env('DATABASE_PASSWORD'),
+    # "HOST": env('DATABASE_HOST'),
+    # "PORT": env('DATABASE_PORT'),
+
+
+    # 'NAME': 'student',
+    # 'USER': 'newuser',
+    # 'PASSWORD': 'password',
+    # 'HOST': 'localhost',
+    # 'PORT': '5432',
+    # }
     # 'mysql': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'HOST': '127.0.0.1',
