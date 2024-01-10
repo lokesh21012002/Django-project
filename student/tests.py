@@ -1,4 +1,4 @@
-from django.test import TestCase
+# from django.test import TestCase
 
 # Create your tests here.
 # tests.py
@@ -8,9 +8,10 @@ from student.models.models import *
 from .serializers import StudentSerializer
 
 
-@pytest.fixture
-def client():
-    return APIClient()
+# @pytest.fixture
+# def client():
+#     return APIClient()
+client = APIClient()
 
 
 @pytest.fixture

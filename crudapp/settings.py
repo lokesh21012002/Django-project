@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'student',
     'rest_framework.authtoken',
+    # 'test'
     # 'djnago_filters',
 
 ]
