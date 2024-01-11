@@ -1,20 +1,36 @@
 from django.db import models
+from dateutil.relativedelta import relativedelta
+from datetime import date
 
 # Create your models here.
 
 
+def calculate_age(value):
+    age = relativedelta(date.today()-value).years
+    return age
+
+
 def validate_age(value):
     # print(type(value))
-    if type(value) != int or value < 0 or value > 100:
+    if type(value) != date or calculate_age(value) <= 0 or calculate_age(value) > 50:
         raise Exception("Invalid age")
 
     return value
 
 
-class Student(models.Model):
+# class Student(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     name = models.CharField(max_length=20)
+
+#     address = models.CharField(max_length=20)
+
+#     def __str__(self):
+#         return self.name
+class StudentModel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
-    age = models.IntegerField(validators=[validate_age])
+    age = models.DateField()
+
     address = models.CharField(max_length=20)
 
     def __str__(self):
@@ -26,7 +42,7 @@ class Course(models.Model):
     name = models.CharField(max_length=20)
     duration = models.CharField(max_length=5)
     student = models.ManyToManyField(
-        Student)
+        StudentModel)
 
     def __str__(self):
         return f"{self.id} {self.name}"
@@ -59,3 +75,16 @@ class Course(models.Model):
 
 #     def __str__(self):
 #         return self.username
+
+
+def ResponseEntity():
+    id = int
+    name = str
+    age_stu = int
+    address = str
+
+    def __init__(self, id, name, age, address):
+        self.id = id
+        self.name = name
+        self.age_stu = age
+        self.address = address

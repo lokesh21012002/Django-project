@@ -31,7 +31,7 @@ class Studentserializers(serializers.ModelSerializer):
     courses = CourseSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Student
+        model = StudentModel
         fields = '__all__'
 #         # incldue=['id','name','age']
 #         # exclude=['address']
