@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import request, JsonResponse, HttpResponse
-
+from datetime import datetime
+from rest_framework.response import Response
 from student.models.models import *
 # from .serializers import Studentserializers
 from student.serializers.serializers import *
@@ -17,9 +18,40 @@ from django.core.cache import cache
 # CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
+def helper(serialized_data):
+    return {"id": serialized_data.data.get("id"),
+            "name": serialized_data.data.get("name"),
+            "age": calculate_age(serialized_data.data.get('dob')),
+            "address": serialized_data.data.get('address')
+
+
+
+
+
+            }
+
+
+def heleperall(obj):
+    return {"id": obj.get("id"),
+            "name": obj.get("name"),
+            "age": calculate_age(obj.get('dob')),
+            "address": obj.get('address')
+
+
+
+
+
+            }
+
+
 def calculate_age(dob):
-    age = relativedelta(date.today(), dob).years
-    return age
+    cus_date = datetime.strptime("2002-01-21", "%Y-%m-%d").date()
+    # print(type(cus_date))
+    # print(type(date.today()), type*)
+    # dobnew = tuple(map(int, dob.split(',')))
+    age = relativedelta(date.today(), cus_date)
+    print(age.years)
+    return age.years
 
 
 @csrf_exempt
@@ -33,11 +65,15 @@ def getAllStudents(request):
             serialize = Studentserializers(students, many=True)
 
             # print(serialize.data)
-            students = []
+            students_response = []
             for i in serialize.data:
-                students.append(ResponseEntity(
-                    i.id, i.name, calculate_age(i.dob), i.address))
-            return JsonResponse(students, safe=False, status=200)
+                students_response.append(heleperall(i))
+                # print(heleperall(i))
+            #     students_response.append(helper(i))
+            # students_response.append(he)
+            # students_response.append(ResponseEntity(
+            #     i.id, i.name, calculate_age(i.dob), i.address))
+            return JsonResponse(students_response, safe=False, status=200)
 
         else:
             return JsonResponse({"error": "Method not allowed"}, status=405)
@@ -170,10 +206,10 @@ def studentAPI(request, id=0):
             else:
                 serialized_data = Studentserializers(stu[0])
                 # cache.set(id, serialized_data)
-                student = ResponseEntity(serialized_data.data.id, serialized_data.data.name, calculate_age(
-                    serialized_data.data.dob), serialized_data.data.address)
+                # student = ResponseEntity(serialized_data.data.id, serialized_data.data.name, calculate_age(
+                #     serialized_data.data.dob), serialized_data.data.address)
 
-                return JsonResponse(student, status=200, safe=False)
+                return JsonResponse(helper(serialized_data.data), status=200, safe=False)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
@@ -181,16 +217,18 @@ def studentAPI(request, id=0):
         try:
             payload = json.loads(request.body)
 
-            # print(request.body)
-            if type(payload["dob"]) != date:
-                raise ValueError("Age must be an integer")
+            # print((payload['dob']))
+            print(payload)
+            # if type(payload["dob"]) in ['str', 'int']:
+
+            #     raise ValueError("Invalid DOB")
 
             serialized_data = Studentserializers(data=payload)
             if serialized_data.is_valid(raise_exception=True):
                 serialized_data.save()
-                student = ResponseEntity(serialized_data.data.id, serialized_data.data.name, calculate_age(
-                    serialized_data.data.dob), serialized_data.data.address)
-                return JsonResponse({"message": "success", "data": student}, status=201)
+                # student = ResponseEntity(serialized_data.data.get('id'), serialized_data.data.get("name"), calculate_age(
+                #     serialized_data.data.get("dob")), serialized_data.data.get("address"))
+                return JsonResponse(helper(serialized_data), safe=False, status=201)
             else:
                 # serialized_data.save()
                 # serialized_data.create()

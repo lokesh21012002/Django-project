@@ -33,6 +33,7 @@ class Studentserializers(serializers.ModelSerializer):
     class Meta:
         model = StudentModel
         fields = '__all__'
+
 #         # incldue=['id','name','age']
 #         # exclude=['address']
 #         read_only_fields = ['id']
@@ -55,17 +56,17 @@ class Studentserializers(serializers.ModelSerializer):
 
 #         # return value
 
-    def validate(self, data):
-        print(data)
-        name = data.get('name')
-        age = data.get('age')
-        if type(age) != int:
-            raise serializers.ValidationError("Age must be integer")
+    # def validate(self, data):
+    #     print(data)
+    #     name = data.get('name')
+    #     age = data.get('age')
+    #     if type(age) != int:
+    #         raise serializers.ValidationError("Age must be integer")
 
-        if age < 0:
-            raise serializers.ValidationError("Age must be positive")
+    #     if age < 0:
+    #         raise serializers.ValidationError("Age must be positive")
 
-        return data
+    #     return data
 
 #     # def update(self, instance, validated_data):
 #     #     instance.name = validated_data.get('name', instance.name)
