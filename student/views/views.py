@@ -252,7 +252,7 @@ def studentAPI(request, id=0):
 
             if serializer.is_valid():
                 serializer.save()
-                return JsonResponse({"message": "Updated Successfully!"}, status=204)
+                return JsonResponse({"message": "Updated Successfully!"}, status=200)
             else:
                 return JsonResponse(serializer.errors, status=400)
         except Exception as e:
