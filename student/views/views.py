@@ -262,7 +262,7 @@ def studentAPI(request, id=0):
         try:
             student = StudentModel.objects.get(id=id)
             student.delete()
-            return JsonResponse({"message": "Successfully deleted the student."}, status=204)
+            return JsonResponse({"message": "Successfully deleted the student."}, status=200)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
