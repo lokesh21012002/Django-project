@@ -209,7 +209,7 @@ def studentAPI(request, id=0):
                 # student = ResponseEntity(serialized_data.data.id, serialized_data.data.name, calculate_age(
                 #     serialized_data.data.dob), serialized_data.data.address)
 
-                return JsonResponse(helper(serialized_data.data), status=200, safe=False)
+                return JsonResponse(helper(serialized_data), status=200, safe=False)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
